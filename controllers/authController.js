@@ -67,7 +67,11 @@ const authRegisterController = async (req, res) => {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
-  
+    tls: {
+      rejectUnauthorized: false,
+    },
+    connectionTimeout: 5000,
+    socketTimeout: 5000,
   });
 
     const verifyLink = `${process.env.CLIENT_URL}/verify-email/${emailToken}`;

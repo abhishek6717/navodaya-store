@@ -1,0 +1,150 @@
+.cart-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 10px;
+}
+
+.cart-title {
+  margin-bottom: 20px;
+}
+
+/* Empty cart */
+.empty-cart {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+/* Layout */
+.cart-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+/* Cart Items */
+.cart-items {
+  display: grid;
+  gap: 16px;
+}
+
+.cart-card {
+  display: flex;
+  gap: 16px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  align-items: center;
+}
+
+.cart-card img {
+  width: 110px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cart-info {
+  flex: 1;
+}
+
+.cart-info h4 {
+  margin-bottom: 6px;
+}
+
+.cart-info .price {
+  color: #2563eb;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Quantity */
+.qty-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.qty-controls button {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #f8f8f8;
+  cursor: pointer;
+}
+
+.qty-controls input {
+  width: 50px;
+  text-align: center;
+  padding: 4px;
+}
+
+.remove-btn {
+  margin-left: 10px;
+  background: none;
+  color: #dc2626;
+  border: none;
+  cursor: pointer;
+}
+
+/* Subtotal */
+.cart-subtotal {
+  text-align: right;
+  min-width: 110px;
+}
+
+/* Summary */
+.cart-summary {
+  background: #fff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  height: fit-content;
+}
+
+.cart-summary h3 {
+  margin-bottom: 16px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.summary-row.total {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn.outline {
+  background: transparent;
+  border: 1px solid #2563eb;
+  color: #2563eb;
+}
+
+.btn.link {
+  background: none;
+  color: #2563eb;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .cart-grid {
+    grid-template-columns: 1fr;
+  }
+}

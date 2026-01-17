@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+  font-family: Arial, sans-serif;
+}
+
+/* // <weight>: Use a value from 300 to 900
+// <uniquifier>: Use a unique and descriptive class name
+
+.playfair-<uniquifier> {
+  font-family: "Playfair", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+} */
+.navbar {
+  font-family:'poppins', sans-serif;
+  font-size:17px;
+  line-height: 26px;
+  text-transform: uppercase;
+  box-shadow: 0 8px 6px -6px gray;
+  border-bottom: solid 1px gray !important;
+}
+.navbar-brand {
+  font-family: 'Playfair', serif;
+  font-weight: 900;
+  font-size: 30px;
+}
+.navbar-nav .nav-link {
+  color: #000 !important;
+  font-weight: 500;
+}
+.active {
+  border-bottom: 1px solid #000 !important;
+  font-weight: 700;
+}
+.footer {
+  background-color: #343a40;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.footer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+.pnf{
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center
+}
+.pnf h1 {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.pnf h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+.pnfLink {
+  padding: 0.5rem 1.5rem;
+  background: #dc3545;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}

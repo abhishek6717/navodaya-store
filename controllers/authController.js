@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 
 import crypto from "crypto";
 import nodemailer from "nodemailer";
+import sgTransport from "nodemailer-sendgrid-transport";
 
 const authRegisterController = async (req, res) => {
   try {
@@ -70,11 +71,18 @@ const authRegisterController = async (req, res) => {
     }
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.EMAIL_USER.trim(),
+        pass: process.env.EMAIL_PASS.trim(),
       },
+      tls: {
+        rejectUnauthorized: false,
+      },
+      connectionTimeout: 10000,
+      socketTimeout: 10000,
     });
 
     const verifyLink = `${process.env.CLIENT_URL}/verify-email/${emailToken}`;

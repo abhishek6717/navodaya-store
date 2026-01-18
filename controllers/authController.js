@@ -59,20 +59,23 @@ const authRegisterController = async (req, res) => {
     }).save();
 
     // // ---------------- SEND EMAIL ----------------
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
-    connectionTimeout: 5000,
-    socketTimeout: 5000,
-  });
+    // Check if email credentials exist
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.warn('⚠️ Email credentials not configured. Skipping email verification.');
+      return res.status(201).json({
+        status: true,
+        message: "Registration successful. Email verification skipped.",
+        user: { name, email },
+      });
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
 
     const verifyLink = `${process.env.CLIENT_URL}/verify-email/${emailToken}`;
 

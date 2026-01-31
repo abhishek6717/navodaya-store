@@ -7,17 +7,12 @@
   font-family: Arial, sans-serif;
 }
 
-/* // <weight>: Use a value from 300 to 900
-// <uniquifier>: Use a unique and descriptive class name
+body {
+  background-color: #f8f9fa;
+  -webkit-font-smoothing: antialiased;
+}
 
-.playfair-<uniquifier> {
-  font-family: "Playfair", serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
-} */
+/* ==================== NAVBAR MOBILE RESPONSIVE ==================== */
 .navbar {
   font-family:'poppins', sans-serif;
   font-size:17px;
@@ -25,19 +20,184 @@
   text-transform: uppercase;
   box-shadow: 0 8px 6px -6px gray;
   border-bottom: solid 1px gray !important;
+  padding: 0.5rem 0 !important;
 }
+
 .navbar-brand {
   font-family: 'Playfair', serif;
   font-weight: 900;
   font-size: 30px;
 }
+
 .navbar-nav .nav-link {
   color: #000 !important;
   font-weight: 500;
+  padding: 0.5rem 1rem !important;
 }
+
 .active {
   border-bottom: 1px solid #000 !important;
   font-weight: 700;
+}
+
+/* ==================== HAMBURGER MENU ==================== */
+.navbar-toggler {
+  border: none !important;
+  padding: 0.25rem 0.5rem !important;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+
+/* ==================== RESPONSIVE BREAKPOINTS ==================== */
+
+/* Extra Small Devices (Mobile - 320px to 576px) */
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 20px;
+  }
+
+  .navbar {
+    font-size: 14px;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 14px;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .container-fluid {
+    padding: 0 8px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  p {
+    font-size: 13px;
+  }
+
+  .btn {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 13px !important;
+  }
+
+  .btn-lg {
+    padding: 0.75rem 1rem !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Small Devices (Tablets - 576px to 768px) */
+@media (min-width: 576px) and (max-width: 768px) {
+  .navbar-brand {
+    font-size: 24px;
+  }
+
+  .navbar {
+    font-size: 15px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 17px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+/* Medium Devices (Tablets - 768px to 992px) */
+@media (min-width: 768px) and (max-width: 992px) {
+  .navbar-brand {
+    font-size: 26px;
+  }
+
+  h1 {
+    font-size: 26px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+}
+
+/* ==================== MOBILE-FIRST UTILITY CLASSES ==================== */
+.hide-mobile {
+  display: none;
+}
+
+.show-mobile {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .hide-mobile {
+    display: block;
+  }
+
+  .show-mobile {
+    display: none;
+  }
+}
+
+.mobile-p {
+  padding: 8px;
+}
+
+@media (min-width: 768px) {
+  .mobile-p {
+    padding: 16px;
+  }
+}
+
+.mobile-mt {
+  margin-top: 12px;
+}
+
+@media (min-width: 768px) {
+  .mobile-mt {
+    margin-top: 20px;
+  }
+}
+
+/* ==================== SCROLL & TOUCH FRIENDLY ==================== */
+input, textarea, select, button {
+  min-height: 44px;
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
+  input, textarea, select, button {
+    min-height: auto;
+  }
 }
 .footer {
   background-color: #343a40;

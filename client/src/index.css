@@ -1,49 +1,254 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box; 
-  font-family: Arial, sans-serif;
+}
+
+:root {
+  --primary: #1e40af;
+  --primary-dark: #1e3a8a;
+  --primary-light: #dbeafe;
+  --secondary: #0ea5e9;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --dark: #111827;
+  --gray-900: #111827;
+  --gray-800: #1f2937;
+  --gray-700: #374151;
+  --gray-600: #4b5563;
+  --gray-500: #6b7280;
+  --gray-400: #9ca3af;
+  --gray-300: #d1d5db;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-50: #f9fafb;
+  --white: #ffffff;
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 body {
-  background-color: #f8f9fa;
+  background-color: var(--gray-50);
+  color: var(--gray-900);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
 }
 
-/* ==================== NAVBAR MOBILE RESPONSIVE ==================== */
+/* ==================== TYPOGRAPHY ==================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--gray-900);
+}
+
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+h3 {
+  font-size: 28px;
+}
+
+h4 {
+  font-size: 24px;
+}
+
+h5 {
+  font-size: 20px;
+}
+
+h6 {
+  font-size: 18px;
+}
+
+p {
+  color: var(--gray-600);
+  font-size: 16px;
+  line-height: 1.625;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* ==================== BUTTONS ==================== */
+.btn,
+button,
+input[type="button"],
+input[type="submit"] {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: var(--gray-200);
+  color: var(--gray-900);
+}
+
+.btn-secondary:hover {
+  background: var(--gray-300);
+}
+
+.btn-success {
+  background: var(--success);
+  color: var(--white);
+}
+
+.btn-success:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: var(--white);
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 13px;
+  min-height: 40px;
+}
+
+.btn-lg {
+  padding: 14px 32px;
+  font-size: 16px;
+  min-height: 48px;
+}
+
+/* ==================== FORMS ==================== */
+input,
+textarea,
+select {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--gray-900);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--gray-700);
+  font-size: 14px;
+}
+
+/* ==================== NAVBAR ==================== */
 .navbar {
-  font-family:'poppins', sans-serif;
-  font-size:17px;
-  line-height: 26px;
-  text-transform: uppercase;
-  box-shadow: 0 8px 6px -6px gray;
-  border-bottom: solid 1px gray !important;
-  padding: 0.5rem 0 !important;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  padding: 1rem 0 !important;
+  border-bottom: 1px solid var(--gray-200);
 }
 
 .navbar-brand {
-  font-family: 'Playfair', serif;
-  font-weight: 900;
-  font-size: 30px;
+  font-family: 'Poppins', serif;
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--primary) !important;
+  letter-spacing: -0.5px;
 }
 
 .navbar-nav .nav-link {
-  color: #000 !important;
+  color: var(--gray-700) !important;
   font-weight: 500;
-  padding: 0.5rem 1rem !important;
+  padding: 8px 16px !important;
+  margin: 0 4px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 15px;
 }
 
-.active {
-  border-bottom: 1px solid #000 !important;
-  font-weight: 700;
+.navbar-nav .nav-link:hover {
+  background: var(--gray-100);
+  color: var(--primary) !important;
 }
 
-/* ==================== HAMBURGER MENU ==================== */
+.navbar-nav .nav-link.active {
+  background: var(--primary-light);
+  color: var(--primary) !important;
+  border-bottom: none;
+}
+
 .navbar-toggler {
   border: none !important;
-  padding: 0.25rem 0.5rem !important;
+  padding: 8px !important;
 }
 
 .navbar-toggler:focus {
@@ -51,12 +256,52 @@ body {
   box-shadow: none !important;
 }
 
+/* ==================== CARDS ==================== */
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--gray-300);
+  transform: translateY(-4px);
+}
+
 /* ==================== RESPONSIVE BREAKPOINTS ==================== */
 
 /* Extra Small Devices (Mobile - 320px to 576px) */
 @media (max-width: 576px) {
-  .navbar-brand {
+  :root {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
     font-size: 20px;
+  }
+
+  h4 {
+    font-size: 18px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .navbar-brand {
+    font-size: 22px;
   }
 
   .navbar {
@@ -64,88 +309,60 @@ body {
   }
 
   .navbar-nav .nav-link {
-    font-size: 14px;
-    padding: 0.5rem 0.75rem !important;
-  }
-
-  body {
-    font-size: 14px;
-  }
-
-  .container-fluid {
-    padding: 0 8px;
-  }
-
-  h1 {
-    font-size: 20px;
-  }
-
-  h2 {
-    font-size: 18px;
-  }
-
-  h3 {
-    font-size: 16px;
-  }
-
-  p {
     font-size: 13px;
+    padding: 8px 12px !important;
   }
 
   .btn {
-    padding: 0.5rem 0.75rem !important;
-    font-size: 13px !important;
+    padding: 10px 16px;
+    font-size: 13px;
+    min-height: 44px;
   }
 
   .btn-lg {
-    padding: 0.75rem 1rem !important;
-    font-size: 14px !important;
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+    padding: 12px;
   }
 }
 
 /* Small Devices (Tablets - 576px to 768px) */
 @media (min-width: 576px) and (max-width: 768px) {
-  .navbar-brand {
-    font-size: 24px;
-  }
-
-  .navbar {
-    font-size: 15px;
-  }
-
   h1 {
-    font-size: 24px;
+    font-size: 36px;
   }
 
   h2 {
-    font-size: 20px;
+    font-size: 28px;
   }
 
   h3 {
-    font-size: 17px;
+    font-size: 24px;
   }
 
-  p {
-    font-size: 14px;
+  .navbar-brand {
+    font-size: 24px;
   }
 }
 
 /* Medium Devices (Tablets - 768px to 992px) */
 @media (min-width: 768px) and (max-width: 992px) {
-  .navbar-brand {
-    font-size: 26px;
-  }
-
   h1 {
-    font-size: 26px;
+    font-size: 40px;
   }
 
   h2 {
-    font-size: 22px;
+    font-size: 32px;
   }
 
   h3 {
-    font-size: 18px;
+    font-size: 26px;
   }
 }
 

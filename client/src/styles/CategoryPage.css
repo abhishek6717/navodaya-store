@@ -169,15 +169,21 @@
   }
 }
 
-/* MOBILE - Stack vertically */
+/* MOBILE - Stack vertically, PRODUCTS FIRST */
 @media (max-width: 576px) {
   .category-page {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
     padding: 15px 12px;
   }
 
+  .category-products {
+    order: 1;
+  }
+
   .category-sidebar {
+    order: 2;
     padding: 15px;
     position: relative;
     top: auto;

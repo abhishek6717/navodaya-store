@@ -1,10 +1,8 @@
 import { hashPassword, comparePassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
-
 import crypto from "crypto";
-import nodemailer from "nodemailer";
-import sgTransport from "nodemailer-sendgrid-transport";
+import { sendVerificationEmail } from "../services/emailService.js";
 
 const authRegisterController = async (req, res) => {
   try {
@@ -29,7 +27,7 @@ const authRegisterController = async (req, res) => {
 
     // ---------------- CHECK USER ----------------
     const isexists = await userModel.findOne({ email });
-    if (isexists) {
+    if (isexists && isexists.isVerified) {
       return res.status(400).json({
         status: false,
         message: "User already exists",
@@ -60,9 +58,8 @@ const authRegisterController = async (req, res) => {
     }).save();
 
     // // ---------------- SEND EMAIL ----------------
-    // Check if email credentials exist
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-      console.warn('⚠️ Email credentials not configured. Skipping email verification.');
+    if (!process.env.BREVO_API_KEY) {
+      console.warn('⚠️ BREVO_API_KEY not configured. Skipping email verification.');
       return res.status(201).json({
         status: true,
         message: "Registration successful. Email verification skipped.",
@@ -70,38 +67,10 @@ const authRegisterController = async (req, res) => {
       });
     }
 
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER.trim(),
-        pass: process.env.EMAIL_PASS.trim(),
-      },
-      tls: {
-        rejectUnauthorized: false,
-      },
-      connectionTimeout: 10000,
-      socketTimeout: 10000,
-    });
-
     const verifyLink = `${process.env.CLIENT_URL}/verify-email/${emailToken}`;
 
     try {
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: "Verify Your Email",
-        html: `
-          <h2>Hello ${name}</h2>
-          <p>Thank you for registering.</p>
-          <p>Please verify your email by clicking below:</p>
-          <a href="${verifyLink}" style="padding:10px 15px;background:#0d6efd;color:#fff;text-decoration:none;border-radius:5px;">
-            Verify Email
-          </a>
-          <p>If you didn’t register, ignore this email.</p>
-        `,
-      });
+      await sendVerificationEmail(email, name, verifyLink);
     } catch (emailError) {
       await userModel.findByIdAndDelete(newUser._id);
       throw new Error("Email sending failed: " + emailError.message);

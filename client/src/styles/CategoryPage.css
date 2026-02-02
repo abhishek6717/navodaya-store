@@ -7,6 +7,14 @@
   margin: 0 auto;
 }
 
+.category-products {
+  order: 2;
+}
+
+.category-sidebar {
+  order: 1;
+}
+
 /* Sidebar */
 .category-sidebar {
   background: #ffffff;
@@ -172,8 +180,7 @@
 /* MOBILE - Stack vertically, PRODUCTS FIRST */
 @media (max-width: 576px) {
   .category-page {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 20px;
     padding: 15px 12px;
   }

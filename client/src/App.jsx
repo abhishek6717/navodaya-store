@@ -26,6 +26,7 @@ import CartPage from './pages/CartPage.jsx';
 import Checkout from './pages/Checkout.jsx';
 import VerifyEmail from './pages/Auth/VerifyEmail.jsx';
 import VerifyEmailInfo from './pages/Auth/VerifyEmailInfo.jsx';
+import Feedback from './pages/Feedback.jsx';
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/feedback" element={<Feedback />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="/logout" element={<Login />} />
         <Route path='/forget-password' element={<ForgetPassword />} />

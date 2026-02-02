@@ -13,6 +13,7 @@ import productRouter from './routes/productRouter.js';
 import paymentRouter from './routes/paymentRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import cartRouter from './routes/cartRouter.js';
+import feedbackRouter from './routes/feedback.js';
 import cors from 'cors';    
 import http from 'http';
 
@@ -47,6 +48,7 @@ app.use('/api/v1/product', productRouter);
 app.use('/api/v1/payment', paymentRouter);
 app.use('/api/v1/order', orderRouter);
 app.use('/api/v1/cart',cartRouter);
+app.use('/api/v1/feedback', feedbackRouter);
 
 // In production, serve static files from the client build
 if (process.env.CURRENT_RUN_MODE === 'production') {

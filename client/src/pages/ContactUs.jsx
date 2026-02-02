@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import { BiEnvelope, BiPhone, BiMap } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const ContactUs = () => {
   return (
@@ -50,6 +51,9 @@ const ContactUs = () => {
           >
             <BiMap size={22} /> Address: 123, Main Street, Your City, India
           </p>
+          <Link to="/feedback" className="feedback-link">
+            Give Website Feedback →
+          </Link>
         </div>
       </div>
     </Layout>

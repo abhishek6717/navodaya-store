@@ -15,6 +15,10 @@ const Footer = () => {
         <Link to="/contact-us" className="text-white">
           Contact Us
         </Link>
+        <span className="mx-2">|</span>
+        <Link to="/feedback" className="text-white">
+          Feedback
+        </Link>
       </p> 
     </div>
   );

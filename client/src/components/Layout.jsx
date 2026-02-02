@@ -1,7 +1,10 @@
 import Header from './Header.jsx';  
 import Footer from './Footer.jsx';
+import Breadcrumb from './Breadcrumb.jsx';
+import BackToTop from './BackToTop.jsx';
 import { Helmet } from "react-helmet";
 import { ToastContainer} from 'react-toastify';
+import '../styles/GlobalImprovements.css';
 
 const Layout = ({children,title,description,keywords,author}) => {
   return (
@@ -18,6 +21,7 @@ const Layout = ({children,title,description,keywords,author}) => {
         <ToastContainer />
         {children}    
       </main>
+      <BackToTop />
       <Footer/> 
     </>
   )

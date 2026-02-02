@@ -6,6 +6,10 @@ import { toast } from "react-toastify";
 import "../styles/HomePage.css";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/Auth.jsx";
+import HeroBanner from "../components/HeroBanner";
+import CountdownTimer from "../components/CountdownTimer";
+import FeaturedProducts from "../components/FeaturedProducts";
+import PromoBanner from "../components/PromoBanner";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -24,7 +28,7 @@ const HomePage = () => {
 
   /* 🔢 Pagination state */
   const [page, setPage] = useState(1);
-  const perPage = 8;
+  const perPage = 10;
 
   const priceRanges = [
     { id: 1, name: "Under ₹500", min: 0, max: 499 },
@@ -42,7 +46,7 @@ const HomePage = () => {
         if (data?.status) {
           const sortedProducts = (data.products || []).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
           setProducts(sortedProducts);
-          setFiltered(sortedProducts);
+          // setFiltered(sortedProducts.slice(16)); // Skip first 16 (featured) for "All Products"
         }
       } catch {
         toast.error("Failed to load products");
@@ -118,7 +122,23 @@ const HomePage = () => {
 
   return (
     <Layout title="Home" description="Ecommerce Home">
-      <div className="home-container">
+      <div className="home-container" style={{ minHeight: "100vh", height: "auto", paddingBottom: "50px" }}>
+        
+        {/* Promo Banner */}
+        <PromoBanner position="top" />
+
+        {/* Hero Banner */}
+        <HeroBanner />
+
+        {/* Flash Sale Countdown */}
+        <CountdownTimer />
+
+        {/* Featured Products Carousel */}
+        {/* <FeaturedProducts products={products} /> */}
+
+        {/* Promo Banner 2 */}
+        <PromoBanner position="middle" />
+
         <div className="content-grid">
 
           {/* LEFT FILTERS */}
@@ -128,7 +148,7 @@ const HomePage = () => {
             <div className="filter-group">
               <strong>Categories</strong>
               {categories.map((c) => (
-                <label key={c._id} className="filter-item">
+                <label key={c._id} className="filter-item" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                   <input
                     type="checkbox"
                     checked={selectedCategories.includes(c._id)}
@@ -148,7 +168,7 @@ const HomePage = () => {
             <div className="filter-group">
               <strong>Price</strong>
               {priceRanges.map((r) => (
-                <label key={r.id} className="filter-item">
+                <label key={r.id} className="filter-item" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                   <input
                     type="checkbox"
                     checked={selectedRanges.includes(r.id)}
@@ -191,6 +211,10 @@ const HomePage = () => {
               <p className="empty">No products found</p>
             ) : (
               <>
+                <div className="products-section-header">
+                  <h2>All Products</h2>
+                  <p>Browse our complete collection</p>
+                </div>
                 <div className="product-grid">
                   {paginatedProducts.map((p) => (
                     <div key={p._id} className="product-card">

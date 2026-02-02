@@ -51,23 +51,7 @@ const CategoryPage = () => {
     <Layout title="Categories">
       <div className="category-page">
 
-        {/* LEFT SIDEBAR */}
-        <aside className="category-sidebar">
-          <h3>Categories</h3>
-          <ul>
-            <li className={!id ? "active" : ""}>
-              <Link to="/category">All Products</Link>
-            </li>
-
-            {categories.map((c) => (
-              <li key={c._id} className={id === c._id ? "active" : ""}>
-                <Link to={`/category/${c._id}`}>{c.name}</Link>
-              </li>
-            ))}
-          </ul>
-        </aside>
-
-        {/* RIGHT PRODUCTS */}
+        {/* PRODUCTS FIRST (on mobile, shows before sidebar) */}
         <section className="category-products">
           <h2>{id ? "Products" : "All Products"}</h2>
 
@@ -97,6 +81,22 @@ const CategoryPage = () => {
             </div>
           )}
         </section>
+
+        {/* SIDEBAR - Now appears after products in DOM (but positioned left via CSS on desktop) */}
+        <aside className="category-sidebar">
+          <h3>Categories</h3>
+          <ul>
+            <li className={!id ? "active" : ""}>
+              <Link to="/category">All Products</Link>
+            </li>
+
+            {categories.map((c) => (
+              <li key={c._id} className={id === c._id ? "active" : ""}>
+                <Link to={`/category/${c._id}`}>{c.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </aside>
 
       </div>
     </Layout>

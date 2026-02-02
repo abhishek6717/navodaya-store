@@ -105,7 +105,7 @@ const ProductDetails = () => {
 
   return (
     <Layout title={product.name} description={product.description}>
-      <div className="product-wrapper" style={{ minHeight: "100vh", height: "auto", paddingBottom: "50px" }}>
+      <div className="product-wrapper" style={{ minHeight: "100vh", height: "auto", paddingBottom: "120px" }}>
         <div className="product-main-container">
           
           {/* LEFT - IMAGE GALLERY */}

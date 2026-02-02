@@ -122,7 +122,7 @@ const HomePage = () => {
 
   return (
     <Layout title="Home" description="Ecommerce Home">
-      <div className="home-container" style={{ minHeight: "100vh", height: "auto", paddingBottom: "50px" }}>
+      <div className="home-container" style={{ minHeight: "100vh", height: "auto", paddingBottom: "120px" }}>
         
         {/* Promo Banner */}
         <PromoBanner position="top" />

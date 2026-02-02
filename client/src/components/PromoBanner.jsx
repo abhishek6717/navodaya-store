@@ -37,30 +37,13 @@ const PromoBanner = ({ position = "top" }) => {
     <div
       className={`promo-banner ${position}`}
       style={{ 
-        background: banners[currentBanner].bgGradient,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        padding: "10px 40px"
+        background: banners[currentBanner].bgGradient
       }}
     >
-      <p className="promo-text" style={{ margin: 0, width: "100%", textAlign: "center" }}>{banners[currentBanner].text}</p>
+      <p className="promo-text">{banners[currentBanner].text}</p>
       <button
         className="promo-close"
         onClick={() => setIsVisible(false)}
-        style={{
-          position: "absolute",
-          right: "10px",
-          top: "50%",
-          transform: "translateY(-50%)",
-          background: "transparent",
-          border: "none",
-          color: "white",
-          fontSize: "1.2rem",
-          cursor: "pointer",
-          zIndex: 10
-        }}
       >
         ✕
       </button>

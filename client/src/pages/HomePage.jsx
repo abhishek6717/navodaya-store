@@ -137,7 +137,7 @@ const HomePage = () => {
         {/* <FeaturedProducts products={products} /> */}
 
         {/* Promo Banner 2 */}
-        <PromoBanner position="middle" />
+        {/* <PromoBanner position="middle" /> */}
 
         <div className="content-grid">
 

@@ -442,7 +442,7 @@ html {
   }
 
   .content-grid {
-    flex-direction: row;
+    flex-direction: column;
     gap: 12px;
   }
 

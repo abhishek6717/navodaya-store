@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../styles/HomePage.css";
+import "../styles/FilterPanel.css";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/Auth.jsx";
 import HeroBanner from "../components/HeroBanner";
@@ -25,6 +26,7 @@ const HomePage = () => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [loading, setLoading] = useState(true);
+  const [showFilterPanel, setShowFilterPanel] = useState(false);
 
   /* 🔢 Pagination state */
   const [page, setPage] = useState(1);
@@ -142,7 +144,7 @@ const HomePage = () => {
         <div className="content-grid">
 
           {/* LEFT FILTERS */}
-          <aside className="sidebar">
+          <aside className="sidebar hide-on-mobile">
             <h3>Filters</h3>
 
             <div className="filter-group">
@@ -197,8 +199,74 @@ const HomePage = () => {
             </div>
           </aside>
 
+          {showFilterPanel && (
+            <div className="filter-panel">
+              <aside className="sidebar">
+                <button className="close-btn" onClick={() => setShowFilterPanel(false)}>
+                  &times;
+                </button>
+                <h3>Filters</h3>
+
+                <div className="filter-group">
+                  <strong>Categories</strong>
+                  {categories.map((c) => (
+                    <label key={c._id} className="filter-item" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <input
+                        type="checkbox"
+                        checked={selectedCategories.includes(c._id)}
+                        onChange={() =>
+                          setSelectedCategories((prev) =>
+                            prev.includes(c._id)
+                              ? prev.filter((id) => id !== c._id)
+                              : [...prev, c._id]
+                          )
+                        }
+                      />
+                      {c.name}
+                    </label>
+                  ))}
+                </div>
+
+                <div className="filter-group">
+                  <strong>Price</strong>
+                  {priceRanges.map((r) => (
+                    <label key={r.id} className="filter-item" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                      <input
+                        type="checkbox"
+                        checked={selectedRanges.includes(r.id)}
+                        onChange={() =>
+                          setSelectedRanges((prev) =>
+                            prev.includes(r.id)
+                              ? prev.filter((id) => id !== r.id)
+                              : [...prev, r.id]
+                          )
+                        }
+                      />
+                      {r.name}
+                    </label>
+                  ))}
+                </div>
+
+                <div className="filter-group">
+                  <strong>Sort</strong>
+                  <div style={{ marginTop: 8 }}>
+                    <select value={sort} onChange={(e) => setSort(e.target.value)} style={{ width: '100%', padding: 8, borderRadius: 6 }}>
+                      <option value="">Sort by Price</option>
+                      <option value="low">Low → High</option>
+                      <option value="high">High → Low</option>
+                    </select>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          )}
+
           {/* RIGHT PRODUCTS */}
           <section className="products-area">
+
+            <button className="filter-btn" onClick={() => setShowFilterPanel(true)}>
+              Filters
+            </button>
 
             {/* PRODUCTS */}
             {loading ? (

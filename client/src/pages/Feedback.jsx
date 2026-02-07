@@ -11,7 +11,7 @@ const Feedback = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: "",
+    comments: "",
   });
   const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -28,7 +28,7 @@ const Feedback = () => {
 
       if (data.success) {
         toast.success("Thanks for your feedback 🙌");
-        setFormData({ name: "", email: "", message: "", comments: "" });
+        setFormData({ name: "", email: "", comments: "" });
         setRating(5);
       }
     } catch (error) {

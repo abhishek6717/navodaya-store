@@ -51,11 +51,8 @@ const ProductDetails = () => {
         const categoryId = product.category?._id || product.category;
         const res = await fetch(`${apiUrl}/api/v1/product/related-products/${product._id}/${categoryId}`);
         const data = await res.json();
-        if (data?.status) setRelated(data.relatedProducts || data.relatedProducts || data.relatedProducts === undefined ? data.relatedProducts : data.relatedProducts);
-        // Some controllers return `relatedProducts`, others may use different key; fallbacks handled below
-        if (data?.relatedProducts) setRelated(data.relatedProducts);
-        else if (data?.products) setRelated(data.products);
-        else if (data?.related) setRelated(data.related);
+        // Handle different response keys for related products
+        if (data?.status) setRelated(data.relatedProducts || data.products || data.related || []);
       } catch (err) {
         // silent
       } finally {

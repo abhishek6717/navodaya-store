@@ -18,8 +18,9 @@ const CategoryPage = () => {
         const res = await fetch(`${apiUrl}/api/v1/category/get-categories`);
         const data = await res.json();
         if (data?.status) setCategories(data.categories || []);
-      } catch {
-        // ignore
+      } catch (error) {
+        console.log(error);
+        toast.error("Something went wrong in getting category");
       }
     };
     loadCategories();

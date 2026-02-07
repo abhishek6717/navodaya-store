@@ -18,7 +18,6 @@ const Checkout = () => {
   const handlePay = async () => {
     try {
       setProcessing(true);
-      const apiUrl = import.meta.env.VITE_API_URL;
 
       let nonce = null;
       // If dropin instance available, request payment method

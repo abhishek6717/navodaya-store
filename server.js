@@ -15,16 +15,16 @@ import paymentRouter from './routes/paymentRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import cartRouter from './routes/cartRouter.js';
 import feedbackRouter from './routes/feedback.js';
-// import errorHandler from './middleware/errorHandler.js';
-// import validateEnv from './utils/envValidator.js';
-// import logger from './utils/logger.js';    
+import errorHandler from './middleware/errorHandler.js';
+import validateEnv from './utils/envValidator.js';
+import logger from './utils/logger.js';    
 import http from 'http';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Validate environment variables on startup
-// validateEnv();
+validateEnv();
 
 // Connect to the database
 connectDB();
@@ -78,7 +78,7 @@ app.use('/api/v1/feedback', feedbackRouter);
 // });
 
 // Error Handling Middleware (must be last)
-// app.use(errorHandler);
+app.use(errorHandler);
 
 // In production, serve static files from the client build
 if (process.env.CURRENT_RUN_MODE === 'production') {
@@ -101,6 +101,6 @@ const currentRunMode = process.env.CURRENT_RUN_MODE || 'development';
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running in ${currentRunMode} mode on port ${PORT}`);
+    logger.info(`Server started in ${currentRunMode} mode`, { port: PORT });
 });
 

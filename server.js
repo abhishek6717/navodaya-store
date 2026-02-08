@@ -32,18 +32,6 @@ connectDB();
 // Initialize the Express application
 const app = express();
 
-// Security Middleware
-// Add security headers
-// app.use((req, res, next) => {
-//   res.setHeader('X-Content-Type-Options', 'nosniff');
-//   res.setHeader('X-Frame-Options', 'DENY');
-//   res.setHeader('X-XSS-Protection', '1; mode=block');
-//   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
-//   res.setHeader('Content-Security-Policy', "default-src 'self'");
-//   next();
-// });
-
-// Middleware to parse JSON bodies
 // Enable CORS for all routes
 const corsOptions = {
   origin: process.env.CLIENT_URL || 'http://localhost:5173',
@@ -68,14 +56,6 @@ app.use('/api/v1/order', orderRouter);
 app.use('/api/v1/cart',cartRouter);
 app.use('/api/v1/feedback', feedbackRouter);
 
-// 404 Handler
-// app.use((req, res) => {
-//   res.status(404).json({
-//     success: false,
-//     message: 'API endpoint not found',
-//     path: req.path,
-//   });
-// });
 
 // Error Handling Middleware (must be last)
 app.use(errorHandler);

@@ -90,8 +90,8 @@ const Orders = () => {
                 </div>
                 <div className="info-item">
                   <strong>Payment</strong>
-                  <span className={`payment-status ${o?.payment?.success ? "success" : "pending"}`}>
-                    {o?.payment?.success ? "Paid" : "Pending"}
+                  <span className={`payment-status ${o?.payment?.status === 'success' ? "success" : "pending"}`}>
+                    {o?.payment?.status === 'success' ? "Paid" : "Pending"}
                   </span>
                   <div style={{ fontSize: "0.75rem", color: "#888", marginTop: "2px" }}>
                     {o?.payment?.transactionId}

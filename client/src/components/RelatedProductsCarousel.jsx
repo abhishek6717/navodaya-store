@@ -92,15 +92,15 @@ const RelatedProductsCarousel = ({ products = [], apiUrl }) => {
                         className="btn-add-related"
                         onClick={() => {
                           if (!auth?.user) {
-                            toast.error("Please login to add items to cart");
+                            toast.error("Please login to buy items");
                             navigate("/login");
                             return;
                           }
                           addToCart(product);
-                          toast.success("Added to cart");
+                          navigate("/checkout");
                         }}
                       >
-                        Add
+                        Buy
                       </button>
                     </div>
                   </div>

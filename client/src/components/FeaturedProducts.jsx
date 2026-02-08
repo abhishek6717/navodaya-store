@@ -90,15 +90,15 @@ const FeaturedProducts = ({ products = [] }) => {
                     className="featured-btn secondary"
                     onClick={() => {
                       if (!auth?.user) {
-                        toast.error("Please login to add items to cart");
+                        toast.error("Please login to buy items");
                         navigate("/login");
                         return;
                       }
                       addToCart(product);
-                      toast.success("Added to cart");
+                      navigate("/checkout");
                     }}
                   >
-                    Add Cart
+                    Buy
                   </button>
                 </div>
               </div>

@@ -188,8 +188,30 @@
 
 .card-actions .btn {
   flex: 1;
-  font-size: 13px;
-  padding: 10px 12px;
+  font-size: 12px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 5px;
+  transition: background 0.2s, color 0.2s;
+  min-width: 0;
+}
+
+.card-actions .btn.add-cart {
+  background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+  color: #fff;
+  font-weight: 600;
+}
+.card-actions .btn.add-cart:hover {
+  background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+}
+
+.card-actions .btn.buy {
+  background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+  color: #fff;
+  font-weight: 600;
+}
+.card-actions .btn.buy:hover {
+  background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
 }
 
 /* Skeleton */

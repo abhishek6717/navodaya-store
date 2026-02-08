@@ -14,7 +14,7 @@ import PromoBanner from "../components/PromoBanner";
 const HomePage = () => {
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;
-  const { addToCart } = useCart();
+  const { cart, addToCart } = useCart();
   const { auth } = useAuth();
 
   const [products, setProducts] = useState([]);
@@ -264,20 +264,29 @@ const HomePage = () => {
                       >
                         View Product
                       </button>
-                      <button
-                        className="btn"
-                        onClick={() => {
-                          if (!auth?.user) {
-                            toast.error("Please login to add items to cart");
-                            navigate("/login");
-                            return;
-                          }
-                          addToCart(p);
-                          toast.success("Added to cart");
-                        }}
-                      >
-                        Add to Cart
-                      </button>
+                      {cart.some((item) => item._id === p._id) ? (
+                        <button
+                          className="btn buy"
+                          onClick={() => navigate("/checkout")}
+                        >
+                          Buy
+                        </button>
+                      ) : (
+                        <button
+                          className="btn add-cart"
+                          onClick={async () => {
+                            if (!auth?.user) {
+                              toast.error("Please login to add items to cart");
+                              navigate("/login");
+                              return;
+                            }
+                            await addToCart(p);
+                            toast.success("Added to cart");
+                          }}
+                        >
+                          Add to Cart
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}

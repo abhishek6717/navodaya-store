@@ -63,8 +63,8 @@ const UserOrders = () => {
                   </div>
                   <div className="info-item">
                     <strong>Payment</strong>
-                    <span className={`payment-status ${o?.payment?.success ? "success" : "pending"}`}>
-                      {o?.payment?.success ? "Paid" : "Pending"}
+                    <span className={`payment-status ${o?.payment?.status === 'success'? "success" : "pending"}`}>
+                      {o?.payment?.status === 'success' ? "Paid" : "Pending"}
                     </span>
                   </div>
                 </div>

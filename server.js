@@ -70,13 +70,13 @@ app.use('/api/v1/cart',cartRouter);
 app.use('/api/v1/feedback', feedbackRouter);
 
 // 404 Handler
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: 'API endpoint not found',
-    path: req.path,
-  });
-});
+// app.use((req, res) => {
+//   res.status(404).json({
+//     success: false,
+//     message: 'API endpoint not found',
+//     path: req.path,
+//   });
+// });
 
 // Error Handling Middleware (must be last)
 app.use(errorHandler);

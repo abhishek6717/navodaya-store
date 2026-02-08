@@ -1,99 +1,96 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import UserMenu from "../../components/UserMenu";
 import { useAuth } from "../../context/Auth.jsx";
+import { useCart } from "../../context/CartContext";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import "../../styles/Dashboard.css";
 
 const Dashboard = () => {
   const { auth } = useAuth();
+  const { cart } = useCart();
+  const [ordersCount, setOrdersCount] = useState(0);
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  // Fetch real order count
+  useEffect(() => {
+    if (auth?.token) {
+      const fetchOrders = async () => {
+        try {
+          const { data } = await axios.get(`${apiUrl}/api/v1/order/user-orders`, {
+             headers: { Authorization: `Bearer ${auth?.token}` }
+          });
+          const orders = data?.orders || data || [];
+          setOrdersCount(orders.length);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchOrders();
+    }
+  }, [auth?.token, apiUrl]);
 
   return (
     <Layout title="User Dashboard" description="Manage your account">
-      <div className="container-fluid py-4" style={{ minHeight: "100vh", background: "#f8fafc" }}>
-        <div className="row g-4">
-
-          {/* LEFT SIDEBAR */}
-          <div className="col-12 col-md-3">
-            <div
-              className="bg-white rounded shadow-sm p-3"
-              style={{ minHeight: "100%" }}
-            >
-              <UserMenu />
-            </div>
+      <div className="dashboard-wrapper">
+        <div className="dashboard-content">
+          
+          {/* Sidebar */}
+          <div className="dashboard-sidebar">
+            <UserMenu />
           </div>
 
-          {/* MAIN CONTENT */}
-          <div className="col-12 col-md-9">
-            {/* Welcome Card */}
-            <div className="bg-white rounded shadow-sm p-4 mb-4">
-              <h2 className="mb-1">
-                Welcome back, <span className="text-primary">{auth?.user?.name || "User"}</span> 👋
+          {/* Main Content */}
+          <div className="dashboard-main">
+            
+            {/* Welcome Section */}
+            <div className="welcome-card">
+              <h2 style={{ color: "#2c3e50", fontWeight: "700" }}>
+                Welcome back, {auth?.user?.name || "User"}! 👋
               </h2>
-              <p className="text-muted mb-0">
-                Here’s a quick overview of your account
+              <p style={{ color: "#666", marginTop: "0.5rem", marginBottom: 0 }}>
+                Manage your profile, check orders, and view your account activity.
               </p>
             </div>
 
-            {/* QUICK STATS */}
-            <div className="row g-3 mb-4">
-              <div className="col-sm-6 col-lg-4">
-                <div className="bg-white p-3 rounded shadow-sm text-center">
-                  <h6 className="text-muted">Orders</h6>
-                  <h3 className="fw-bold text-primary">12</h3>
-                </div>
+            {/* Stats Grid */}
+            <div className="stats-grid">
+              <div className="stat-card">
+                <div className="stat-label">Total Orders</div>
+                <div className="stat-number" style={{ color: "#4a90e2" }}>{ordersCount}</div>
               </div>
-              <div className="col-sm-6 col-lg-4">
-                <div className="bg-white p-3 rounded shadow-sm text-center">
-                  <h6 className="text-muted">Wishlist</h6>
-                  <h3 className="fw-bold text-success">5</h3>
-                </div>
+              
+              <div className="stat-card">
+                <div className="stat-label">Cart Items</div>
+                <div className="stat-number" style={{ color: "#f39c12" }}>{cart?.length || 0}</div>
               </div>
-              <div className="col-sm-12 col-lg-4">
-                <div className="bg-white p-3 rounded shadow-sm text-center">
-                  <h6 className="text-muted">Cart Items</h6>
-                  <h3 className="fw-bold text-warning">3</h3>
-                </div>
+
+              <div className="stat-card">
+                <div className="stat-label">Account Status</div>
+                <div className="stat-number" style={{ color: "#27ae60", fontSize: "1.5rem", marginTop: "1rem" }}>Active</div>
               </div>
             </div>
 
-            {/* PROFILE INFO */}
-            <div className="bg-white rounded shadow-sm p-4">
-              <h5 className="mb-3">Account Information</h5>
-
-              <div className="row mb-2">
-                <div className="col-sm-4 text-muted">Email</div>
-                <div className="col-sm-8 fw-semibold">
-                  {auth?.user?.email || "—"}
-                </div>
+            {/* Account Details */}
+            <div className="info-card">
+              <h3 style={{ marginBottom: "1.5rem", color: "#2c3e50" }}>Account Details</h3>
+              
+              <div className="info-row">
+                <span className="info-label">Full Name</span>
+                <span className="info-value">{auth?.user?.name}</span>
               </div>
-
-              <div className="row mb-2">
-                <div className="col-sm-4 text-muted">Phone</div>
-                <div className="col-sm-8 fw-semibold">
-                  {auth?.user?.phone || "—"}
-                </div>
+              <div className="info-row">
+                <span className="info-label">Email</span>
+                <span className="info-value">{auth?.user?.email}</span>
               </div>
-
-              <div className="row mb-4">
-                <div className="col-sm-4 text-muted">Address</div>
-                <div className="col-sm-8 fw-semibold">
-                  {auth?.user?.address || "—"}
-                </div>
+              <div className="info-row">
+                <span className="info-label">Phone</span>
+                <span className="info-value">{auth?.user?.phone || "Not provided"}</span>
               </div>
-
-              <div className="d-flex flex-wrap gap-2">
-                <Link
-                  to="/dashboard/user/profile"
-                  className="btn btn-primary"
-                >
-                  Edit Profile
-                </Link>
-                <Link
-                  to="/dashboard/user/orders"
-                  className="btn btn-outline-secondary"
-                >
-                  View Orders
-                </Link>
+              <div className="info-row">
+                <span className="info-label">Address</span>
+                <span className="info-value">{auth?.user?.address || "Not provided"}</span>
               </div>
             </div>
 

@@ -1,84 +1,120 @@
-import React, { useEffect, useState } from "react";
-import Layout from "../../components/Layout.jsx";
-import UserMenu from "../../components/UserMenu.jsx";
-import { useAuth } from "../../context/Auth.jsx";
+import React, { useState, useEffect } from "react";
+import Layout from "../../components/Layout";
+import axios from "axios";
+import { useAuth } from "../../context/Auth";
+import "../../styles/Orders.css";
 
 const UserOrders = () => {
-  const { auth } = useAuth();
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+  const { auth } = useAuth();
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  const getOrders = async () => {
+    try {
+      const { data } = await axios.get(`${apiUrl}/api/v1/order/user-orders`, {
+        headers: { Authorization: `Bearer ${auth?.token}` }
+      });
+      setOrders(data?.orders || data || []);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        const token = auth?.token;
-        const apiUrl = import.meta.env.VITE_API_URL;
-        const res = await fetch(`${apiUrl}/api/v1/order/user-orders`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        if (data?.status) setOrders(data.orders || []);
-      } catch (err) {
-        console.error('Failed to load orders', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (auth?.token) load();
-  }, [auth]);
+    if (auth?.token) getOrders();
+  }, [auth?.token]);
+
+  // Pagination Logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentOrders = orders.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(orders.length / itemsPerPage);
 
   return (
-    <Layout title="My Orders" description="Your orders">
-      <div className="container-fluid m-0 p-0" style={{ minHeight: "100vh" }}>
-        <div className="row g-0" style={{ minHeight: "100vh" }}>
-          <div className="col-12 col-md-3 bg-light border-end" style={{ minHeight: "100vh" }}>
-            <div className="p-3" style={{ overflowY: "auto" }}>
-              <UserMenu />
-            </div>
+    <Layout title="Your Orders">
+      <div className="orders-page">
+        <h2 style={{ marginBottom: "1.5rem", color: "#2c3e50", fontWeight: "700" }}>Your Orders</h2>
+        
+        {orders?.length === 0 ? (
+          <div className="order-card" style={{ padding: "2rem", textAlign: "center" }}>
+            <p>You haven't placed any orders yet.</p>
           </div>
-          <div className="col-12 col-md-9" style={{ minHeight: "100vh" }}>
-            <div className="p-4">
-              <h2>My Orders</h2>
-              <p>Orders for <strong>{auth?.user?.name || "User"}</strong></p>
+        ) : (
+          <>
+          {currentOrders.map((o, i) => (
+            <div className="order-card" key={o._id}>
+              <div className="order-header">
+                <div className="order-info-grid">
+                  <div className="info-item">
+                    <strong>Order ID</strong>
+                    <span style={{ fontFamily: "monospace", color: "#666" }}>{o._id}</span>
+                  </div>
+                  <div className="info-item">
+                    <strong>Status</strong>
+                    <span className={`status-badge ${o?.status?.toLowerCase().replace(/\s/g, '-')}`}>
+                      {o?.status}
+                    </span>
+                  </div>
+                  <div className="info-item">
+                    <strong>Date</strong>
+                    {new Date(o?.createdAt).toLocaleDateString()}
+                  </div>
+                  <div className="info-item">
+                    <strong>Payment</strong>
+                    <span className={`payment-status ${o?.payment?.success ? "success" : "pending"}`}>
+                      {o?.payment?.success ? "Paid" : "Pending"}
+                    </span>
+                  </div>
+                </div>
+              </div>
 
-              <div className="card p-3">
-                {loading ? (
-                  <p>Loading orders...</p>
-                ) : orders.length === 0 ? (
-                  <p>No orders yet.</p>
-                ) : (
-                  orders.map((o) => (
-                    <div key={o._id} style={{ borderBottom: '1px solid #eee', padding: 12 }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>
-                          <strong>Order ID:</strong> {o._id}
-                          <div><small>{new Date(o.createdAt).toLocaleString()}</small></div>
-                        </div>
-                        <div style={{ textAlign: 'right' }}>
-                          <div><strong>Total:</strong> ₹{o.payment?.amount || 0}</div>
-                          <div><small>Txn: {o.payment?.transactionId || '—'}</small></div>
-                          <div><small>Status: {o.payment?.status || o.status}</small></div>
-                        </div>
-                      </div>
-
-                      <div style={{ marginTop: 8 }}>
-                        {o.products && o.products.map((p) => (
-                          <div key={p.product} style={{ display: 'flex', gap: 12, alignItems: 'center', marginTop: 8 }}>
-                            <div style={{ flex: 1 }}>
-                              <div>{p.name}</div>
-                              <div style={{ color: '#666' }}>Qty: {p.qty} × ₹{p.price}</div>
-                            </div>
-                            <div style={{ minWidth: 120, textAlign: 'right' }}>₹{p.price * p.qty}</div>
-                          </div>
-                        ))}
-                      </div>
+              <div className="order-products">
+                {o?.products?.map((p) => (
+                  <div className="product-item" key={p._id}>
+                    <img
+                      src={`${apiUrl}/api/v1/product/product-photo/${p.product}`}
+                      alt={p.name}
+                      className="product-img"
+                      onError={(e) => { e.target.onerror = null; e.target.src = "/images/placeholder.png"; }}
+                    />
+                    <div className="product-details">
+                      <h4 style={{ margin: "0 0 5px", color: "#333" }}>{p.name}</h4>
+                      <p style={{ margin: 0, color: "#666" }}>
+                        Price: ₹{p.price} | Qty: {p.qty}
+                      </p>
                     </div>
-                  ))
-                )}
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
-        </div>
+          ))}
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="pagination-container">
+              <button 
+                className="pagination-btn" 
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              <span style={{ display: "flex", alignItems: "center", padding: "0 10px", color: "#555" }}>
+                Page {currentPage} of {totalPages}
+              </span>
+              <button 
+                className="pagination-btn" 
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
+          )}
+          </>
+        )}
       </div>
     </Layout>
   );

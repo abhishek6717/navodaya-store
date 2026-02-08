@@ -7,6 +7,8 @@ import "../../styles/Products.css";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
 
   const { auth, initialized } = useAuth();
   const navigate = useNavigate();
@@ -73,6 +75,12 @@ const Products = () => {
     }
   };
 
+  // Pagination Logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
   if (!initialized || loading) {
     return <div className="loading">Loading products...</div>;
   }
@@ -102,7 +110,7 @@ const Products = () => {
               <span>Actions</span>
             </div>
 
-            {products.map((p) => (
+            {currentProducts.map((p) => (
               <div key={p._id} className="table-row">
                 <div className="product-info">
                   <img
@@ -133,6 +141,29 @@ const Products = () => {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="pagination-container">
+            <button 
+              className="pagination-btn" 
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span style={{ display: "flex", alignItems: "center", padding: "0 10px", color: "#555" }}>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button 
+              className="pagination-btn" 
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
           </div>
         )}
       </div>

@@ -1,9 +1,17 @@
-import express from 'express';
-const router = express.Router();
-import feedbackController from '../controllers/feedbackController.js';
+import express from "express";
+import { submitFeedback, getAllFeedback, deleteFeedback } from "../controllers/feedbackController.js";
+// import { requireSignIn, isAdmin } from "../middlewares/authMiddleware.js"; 
 
-// POST /api/feedback/submit
-router.post('/submit', feedbackController.submitFeedback);
+const router = express.Router();
+
+// POST submit feedback
+router.post("/submit", submitFeedback);
+
+// GET all feedback
+// You can add requireSignIn and isAdmin middleware here if you want to protect this route
+router.get("/all", getAllFeedback);
+
+// DELETE feedback
+router.delete("/:id", deleteFeedback);
 
 export default router;
-

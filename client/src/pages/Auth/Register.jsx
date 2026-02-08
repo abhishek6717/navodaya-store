@@ -98,9 +98,9 @@ const Register = () => {
               {loading ? "Creating Account..." : "Register"}
             </button>
 
-            <Link to="/login" className="auth-link">
-              Already have an account?
-            </Link>
+            <div className="mt-3 text-center">
+              <p>Already have an account? <Link to="/login">Login</Link></p>
+            </div>
           </form>
         </div>
       </div>

@@ -96,10 +96,11 @@ const Login = () => {
                                 required
                             />
                         </div>
+                        <button type="submit" className="btn btn-primary w-100">Login</button>
                         <div className="mb-3 text-end">
                             <button type="button" className="btn btn-link p-0" onClick={() => navigate('/forget-password')}>Forgot Password?</button>
                         </div>
-                        <button type="submit" className="btn btn-primary w-100">Login</button>
+
                     </form>
                 </div>
             </div>

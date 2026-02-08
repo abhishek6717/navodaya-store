@@ -16,6 +16,8 @@ import CreateCategory from "./pages/Admin/CreateCategory.jsx";
 import CreateProduct from "./pages/Admin/CreateProduct.jsx";
 import Products from "./pages/Admin/Products.jsx";
 import Orders from "./pages/Admin/Orders.jsx";
+import Users from "./pages/Admin/Users.jsx";
+import AdminFeedback from "./pages/Admin/AdminFeedback.jsx";
 import AdminRoutes from "./components/Routes/AdminRoutes.jsx";
 import UserProfile from "./pages/user/Profile.jsx";
 import UserOrders from "./pages/user/UserOrders.jsx";
@@ -53,7 +55,10 @@ function App() {
           <Route path="create-product" element={<CreateProduct />} />
           <Route path="products" element={<Products />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="users" element={<Users />} />
+          <Route path="feedback" element={<AdminFeedback />} />
           <Route path="update-product/:id" element={<UpdateProduct />} />
+          
 
         </Route>
 

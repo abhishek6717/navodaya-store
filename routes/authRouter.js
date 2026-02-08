@@ -6,6 +6,11 @@ import testcontroller from '../controllers/testController.js';
 const { authRegisterController } = authController;
 const { authLoginController } = authController;
 const {verifyEmailController} = authController;
+const { getAllUsersController } = authController;
+const { getUserController } = authController;
+const { deleteUserController } = authController;
+const { updateUserController } = authController;
+
 const { testController } = testcontroller;
 // remove: const { isAdmin } = testcontroller;
 
@@ -16,6 +21,12 @@ router.post('/login', authLoginController);
 router.get('/test', testController);
 router.post('/forget-password', authController.forgetPasswordController);
 router.get("/verify-email/:token", verifyEmailController);
+
+// admin routes
+router.get('/all-users', authMiddleware, isAdmin, getAllUsersController);
+router.get('/get-user/:id', authMiddleware, isAdmin, getUserController);
+router.delete('/delete-user/:id', authMiddleware, isAdmin, deleteUserController);
+router.put('/update-user/:id', authMiddleware, isAdmin, updateUserController);
 
 // update profile (protected)
 router.put('/update-profile', authMiddleware, authController.updateProfileController);

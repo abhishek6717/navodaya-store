@@ -9,6 +9,7 @@ import { useAuth } from "../../context/Auth.jsx";
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false); // single checkbox for admin
     const navigate = useNavigate();
     // Auth context returns an object (auth, setAuth, logout)
     const { auth, setAuth } = useAuth();
@@ -27,7 +28,6 @@ const Login = () => {
             }
 
             if (response.data.status) {
-                toast.success("Login successful");
                 const expiresAt = Date.now() + 60 * 60 * 1000; // 1 hour
                 const user = response.data.user;
                 const token = response.data.token;
@@ -44,16 +44,18 @@ const Login = () => {
                     expiresAt
                 }));
 
-                // navigate based on role (assumes role === 1 is admin)
- 
+                // navigate based on checkbox
                 setTimeout(() => {
-                console.log(
-                    "User role:", user.admin
-                    
-                )
-                    if (user?.admin === true) {
-                        navigate('/dashboard/admin');
+                    if (isAdmin) {
+                        if (user?.admin === true) {
+                            toast.success("Login successful");
+                            navigate('/dashboard/admin');
+                        } else {
+                            toast.error('You are not authorized as admin.');
+                            navigate('/login');
+                        }
                     } else {
+                        toast.success("Login successful");
                         navigate('/');
                     }
                 }, 600);
@@ -96,11 +98,22 @@ const Login = () => {
                                 required
                             />
                         </div>
+                        <div className="mb-3">
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', whiteSpace: 'nowrap' }}>
+                                <span style={{ marginRight: '16px' }}>Login as Admin</span>
+                                <input
+                                    type="checkbox"
+                                    name="admin-login"
+                                    checked={isAdmin}
+                                    onChange={() => setIsAdmin(!isAdmin)}
+                                    style={{ minWidth: '20px', minHeight: '20px' }}
+                                />
+                            </div>
+                        </div>
                         <button type="submit" className="btn btn-primary w-100">Login</button>
                         <div className="mb-3 text-end">
                             <button type="button" className="btn btn-link p-0" onClick={() => navigate('/forget-password')}>Forgot Password?</button>
                         </div>
-
                     </form>
                 </div>
             </div>
